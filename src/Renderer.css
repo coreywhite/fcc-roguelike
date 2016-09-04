@@ -1,3 +1,5 @@
 .renderer {
     position: relative;
+    font-family: 'Consolas';
+    font-weight: bold;
 }

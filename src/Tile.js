@@ -11,7 +11,7 @@ class Tile extends Component {
             backgroundColor: this.props.bgColor,
             height: this.props.gridSize,
             width: this.props.gridSize,
-            fontSize: this.props.gridSize / 2
+            fontSize: this.props.gridSize - 2
         };
 
         let content = this.props.content || '';
