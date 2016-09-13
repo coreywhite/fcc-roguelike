@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
-import './Tile.css';
+import './AsciiTile.css';
 
 
-class Tile extends Component {
+class AsciiTile extends Component {
     render() {
+        let glyph = '';
         let style = {
             top: this.props.row * this.props.gridSize,
             left: this.props.col * this.props.gridSize,
-            color: this.props.foreColor,
-            backgroundColor: this.props.bgColor,
             height: this.props.gridSize,
             width: this.props.gridSize,
             fontSize: this.props.gridSize - 2
         };
 
-        let content = this.props.content || '';
+        if(this.props.renderData) {
+            style['color'] = this.props.renderData.foreColor;
+            style['backgroundColor'] = this.props.renderData.bgColor;
+            glyph = this.props.renderData.glyph || glyph;
+        }
 
         return (
             <div className='tile' style={style}>
-                {content}
+                {glyph}
             </div>
         );
   }
 }
 
-export default Tile;
+export default AsciiTile;
