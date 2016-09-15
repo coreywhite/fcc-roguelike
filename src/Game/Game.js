@@ -1,12 +1,15 @@
 import Cell from './Cell.js'
+import RenderController from '../UIController/RenderController.js'
 
 class Game {
-    constructor(rows, cols, container) {
-        this.rows = rows;
-        this.cols = cols;
+    constructor(controller) {
+        this.controller = controller;
+        this.rows = 100;
+        this.cols = 100;
         this.world = this.createWorld();
         this.entities = this.createEntities();
         this.player = this.createPlayer();
+        this.viewport = controller.makeViewport(this.player.area, this.player.position, 40, 24);
     }
 
     createWorld() {
@@ -60,17 +63,21 @@ class Game {
     }
     
     createPlayer() {
-        let startTile = this.world.areas[0][Math.ceil(this.rows/2)][Math.floor(this.cols/2)];
-        return null;
+        let area = this.world.areas[0];
+        let cell = area.cells[Math.ceil(this.rows/2)][Math.floor(this.cols/2)];
+        return {
+            name: 'Player',
+            area: area,
+            position: cell.getPosition()
+        };
     }
 
     getRenderData() {
         let tiles = [];
         let area = this.world.areas[0];
-        for(let i = 0; i < area.length; i++) {
-            for(let j = 0; j < area[0].length; j++) {
-                let tile = area[i][j].getRenderData();
-
+        for(let i = 0; i < area.height; i++) {
+            for(let j = 0; j < area.width; j++) {
+                let tile = area.cells[i][j].getRenderData();
                 tiles.push(tile);
             }
         }

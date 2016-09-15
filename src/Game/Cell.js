@@ -19,12 +19,11 @@ class Cell {
         this.type = type;
         this.passable = passable;
     }
+    getPosition() {
+        return {x: this.col, y: this.row};
+    }
     getRenderData() {
-        return {
-            row: this.row,
-            col: this.col,
-            data: CellRenderMap[this.type]
-        }
+        return CellRenderMap[this.type];
     }
 }
 

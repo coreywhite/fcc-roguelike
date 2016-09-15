@@ -8,39 +8,46 @@ class GameView extends Component {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
   }
+
   componentDidMount() {
     window.addEventListener('keydown', this.handleKeyPress);
   }
+
   componentWillUnmount() {
     window.removeEventListener('keydown', this.handleKeyPress);
   }
+
   render() {
     return (
       <div className="game">
         <h1>Roguelike Game</h1>
-        <AsciiRenderer game={this.props.game} gridSize={this.props.gridSize}/>
+        <AsciiRenderer  controller={this.props.controller}
+                        rows={24}
+                        cols={40}
+                        renderSettings={this.props.renderSettings}/>
         <h2>Controls would go here</h2>
       </div>
     );
   }
+
   handleKeyPress(e) {
+    let sendCommand = this.props.controller.commandHandler;
     switch(e.keyCode) {
       case 37:
-        //left
+        sendCommand("left");
         break;
       case 38:
-        //up
+        sendCommand("up");
         break;
       case 39:
-        //right
+        sendCommand("right");
         break;
       case 40:
-        //down
+        sendCommand("down");
         break;
       default:
         break;
     }
-    console.log(e.keyCode);
   }
 }
 
