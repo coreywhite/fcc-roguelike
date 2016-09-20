@@ -11,11 +11,11 @@ class AsciiTile extends Component {
         }
         
         let style = {
-            top: this.props.row * this.props.gridSize,
-            left: this.props.col * this.props.gridSize,
-            height: this.props.gridSize,
-            width: this.props.gridSize,
-            fontSize: this.props.gridSize - 2,
+            top: this.props.row * this.props.tileHeight,
+            left: this.props.col * this.props.tileWidth,
+            height: this.props.tileHeight,
+            width: this.props.tileWidth,
+            fontSize: this.props.tileHeight - 1,
             color: defaults.foreColor,
             backgroundColor: defaults.bgColor
         };

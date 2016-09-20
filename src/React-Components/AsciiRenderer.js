@@ -19,18 +19,22 @@ class AsciiRenderer extends Component {
         let rows = this.props.rows;
         let cols = this.props.cols;
         let renderSettings = this.props.renderSettings;
+        let tileWidth = Math.ceil(renderSettings.gridSize * 2 /3);
+        let tileHeight = Math.ceil(renderSettings.gridSize);
         let style = {
-            height: rows * renderSettings.gridSize,
-            width: cols * renderSettings.gridSize
+            height: rows * tileHeight,
+            width: cols * tileWidth
         };
+
         let tiles = [];
         if(renderData) {
             for(var i = 0; i < renderData.length; i++) {
-                tiles.push(<AsciiTile   gridSize={renderSettings.gridSize}
-                                        row={renderData[i].row}
-                                        col={renderData[i].col}
-                                        key={renderData[i].row + ", " + renderData[i].col} 
-                                        renderData={renderData[i].renderData} />);
+                tiles.push(<AsciiTile   tileWidth = {tileWidth}
+                                        tileHeight = {tileHeight}
+                                        row = {renderData[i].row}
+                                        col = {renderData[i].col}
+                                        key = {renderData[i].row + ", " + renderData[i].col} 
+                                        renderData = {renderData[i].renderData} />);
             }
         }
         return (
