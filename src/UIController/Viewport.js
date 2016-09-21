@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 class Viewport {
     constructor(area, center, width, height) {
         this.area = area;
@@ -66,17 +68,24 @@ class Viewport {
     }
 
     getRenderData() {
-        let bounds = this.getBounds();
-        let tiles = [];
-        for(let i = 0; i < this.viewCells.length; i++) {
-            tiles.push({
-                row: this.viewCells[i].viewRow,
-                col: this.viewCells[i].viewCol,
-                renderData: this.viewCells[i].cell.getRenderData()
-            });
-        }
-        let center = null;
-        return tiles;
+        let data = Immutable.fromJS(this.viewCells.map(
+            viewCell => {
+                return {row: viewCell.viewRow,
+                        col: viewCell.viewCol,
+                        renderData: viewCell.cell.getRenderData()};
+            }
+        ));
+        // console.log(data);
+        // let tiles = [];
+        // for(let i = 0; i < this.viewCells.length; i++) {
+        //     tiles.push({
+        //         row: this.viewCells[i].viewRow,
+        //         col: this.viewCells[i].viewCol,
+        //         renderData: this.viewCells[i].cell.getRenderData()
+        //     });
+        // }
+        // let center = null;
+        return data;
     }
 
 

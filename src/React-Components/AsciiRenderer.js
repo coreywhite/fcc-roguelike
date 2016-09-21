@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Immutable from 'immutable';
 import AsciiTile from './AsciiTile.js'
 import './AsciiRenderer.css';
 
@@ -10,6 +11,12 @@ class AsciiRenderer extends Component {
     }
     componentWillMount() {
         this.props.controller.registerRenderer(this.updateRenderData);
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.renderData !== nextState.renderData
+                || this.props.rows !== nextProps.rows
+                || this.props.cols !== nextProps.cols;
+                //TODO: || this.props.renderSettings !== nextProps.renderSettings;
     }
     updateRenderData(renderData) {
         this.setState({renderData: renderData});
@@ -28,13 +35,13 @@ class AsciiRenderer extends Component {
 
         let tiles = [];
         if(renderData) {
-            for(var i = 0; i < renderData.length; i++) {
+            for(var i = 0; i < renderData.size; i++) {
                 tiles.push(<AsciiTile   tileWidth = {tileWidth}
                                         tileHeight = {tileHeight}
-                                        row = {renderData[i].row}
-                                        col = {renderData[i].col}
-                                        key = {renderData[i].row + ", " + renderData[i].col} 
-                                        renderData = {renderData[i].renderData} />);
+                                        row = {renderData.get(i).get('row')}
+                                        col = {renderData.get(i).get('col')}
+                                        key = {renderData.get(i).get('row') + ", " + renderData.get(i).get('col')} 
+                                        renderData = {renderData.get(i).get('renderData')} />);
             }
         }
         return (

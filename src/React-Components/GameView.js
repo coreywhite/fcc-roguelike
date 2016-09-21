@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Immuntable from 'immutable';
 import AsciiRenderer from './AsciiRenderer.js'
 import './GameView.css';
 

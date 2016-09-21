@@ -3,6 +3,9 @@ import './AsciiTile.css';
 
 
 class AsciiTile extends Component {
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.props.renderData !== nextProps.renderData;
+    }
     render() {
         let defaults = {
             foreColor: 'white',
@@ -22,11 +25,10 @@ class AsciiTile extends Component {
 
         let glyph = defaults.glyph;
 
-
         if(this.props.renderData) {
-            style['color'] = this.props.renderData.foreColor || defaults.foreColor;
-            style['backgroundColor'] = this.props.renderData.bgColor || defaults.bgColor;
-            glyph = this.props.renderData.glyph || defaults.glyph;
+            style['color'] = this.props.renderData.get('foreColor') || defaults.foreColor;
+            style['backgroundColor'] = this.props.renderData.get('bgColor') || defaults.bgColor;
+            glyph = this.props.renderData.get('glyph') || defaults.glyph;
         }
         
         return (
