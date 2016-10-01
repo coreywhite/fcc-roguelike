@@ -6,7 +6,9 @@ import GameView from './React-Components/GameView.js';
 import './index.css';
 
 const renderSettings = {
-  gridSize: 16
+  gridSize: 32,
+  rows: 20,
+  cols: 30
 };
 
 let root = document.getElementById('root'); 

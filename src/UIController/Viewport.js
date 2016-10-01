@@ -75,20 +75,8 @@ class Viewport {
                         renderData: viewCell.cell.getRenderData()};
             }
         ));
-        // console.log(data);
-        // let tiles = [];
-        // for(let i = 0; i < this.viewCells.length; i++) {
-        //     tiles.push({
-        //         row: this.viewCells[i].viewRow,
-        //         col: this.viewCells[i].viewCol,
-        //         renderData: this.viewCells[i].cell.getRenderData()
-        //     });
-        // }
-        // let center = null;
         return data;
     }
-
-
 
 }
 

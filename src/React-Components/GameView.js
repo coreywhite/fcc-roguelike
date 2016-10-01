@@ -33,8 +33,6 @@ class GameView extends Component {
       <div className="game">
         <h1>Roguelike Game</h1>
         <AsciiRenderer  controller={this.props.controller}
-                        rows={25}
-                        cols={80}
                         renderSettings={this.props.renderSettings}/>
         <h2>Controls would go here</h2>
         <TestButton action={this.testAction} />

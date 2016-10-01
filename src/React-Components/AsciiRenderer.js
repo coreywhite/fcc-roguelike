@@ -12,21 +12,22 @@ class AsciiRenderer extends Component {
     componentWillMount() {
         this.props.controller.registerRenderer(this.updateRenderData);
     }
-    shouldComponentUpdate(nextProps, nextState) {
-        return this.state.renderData !== nextState.renderData
-                || this.props.rows !== nextProps.rows
-                || this.props.cols !== nextProps.cols;
-                //TODO: || this.props.renderSettings !== nextProps.renderSettings;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return this.state.renderData !== nextState.renderData
+    //             || this.props.renderSettings.rows !== nextProps.renderSettings.rows
+    //             || this.props.renderSettings.cols !== nextProps.renderSettings.cols
+    //             || this.props.renderSettings.gridSize !== nextProps.renderSettings.gridSize;
+    //             //TODO: || this.props.renderSettings !== nextProps.renderSettings;
+    // }
     updateRenderData(renderData) {
         this.setState({renderData: renderData});
     }
     render() {
         let renderData = this.state.renderData;
-        let rows = this.props.rows;
-        let cols = this.props.cols;
         let renderSettings = this.props.renderSettings;
-        let tileWidth = Math.ceil(renderSettings.gridSize * 2 /3);
+        let rows = renderSettings.rows;
+        let cols = renderSettings.cols;
+        let tileWidth = Math.ceil(renderSettings.gridSize * 2/3);
         let tileHeight = Math.ceil(renderSettings.gridSize);
         let style = {
             height: rows * tileHeight,
