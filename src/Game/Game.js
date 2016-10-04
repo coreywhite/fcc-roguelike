@@ -1,4 +1,5 @@
 import Cell from './Cell.js'
+import Area from './Area.js'
 import RenderController from '../UIController/RenderController.js'
 
 class Game {
@@ -13,33 +14,34 @@ class Game {
     }
 
     createWorld() {
-        let areas=[], map = [];
-        for(let i = 0; i < this.rows; i++) {
-            let row = [];
-            for(let j = 0; j < this.cols; j++) {
-                row.push(new Cell(this, i, j, "wall", false));
+        let areas=[];
+        let testGenerator = function(seed, area) {
+            let map = [];
+            for(let i = 0; i < area.height; i++) {
+                let row = [];
+                for(let j = 0; j < area.width; j++) {
+                    row.push(new Cell(area, i, j, "wall", false));
+                }
+                map.push(row);
             }
-            map.push(row);
-        }
-
-        //testing
-        const dig = (tile) => {
-            tile.type = "floor";
-        }
-        for(let n = -1; n <= 1; n++) {
-            for(let i = 2; i < this.rows - 2; i++) {
-                let tile = map[i][Math.floor(this.cols/2)+n];
-                dig(tile);
+            const dig = (tile) => {
+                tile.type = "floor";
             }
-            for(let j = 1; j < this.cols - 3; j++) {
-                let tile = map[Math.ceil(this.rows/2)+n][j];
-                dig(tile);
+            for(let n = -2; n <= 2; n++) {
+                for(let i = 2; i < area.height - 2; i++) {
+                    let tile = map[i][Math.floor(area.width/2)+n];
+                    dig(tile);
+                }
+                for(let j = 1; j < area.width - 2; j++) {
+                    let tile = map[Math.ceil(area.height/2)+n][j];
+                    dig(tile);
+                }
             }
+            return map;
         }
-        // let startTile = map[Math.ceil(this.rows/2)][Math.floor(this.cols/2)];
-        // startTile.foreColor = "black";
-        // startTile.content = "@";
-        areas.push({height: this.rows, width: this.cols, cells: map});
+        let testArea = new Area(1, testGenerator, null, 'Test Area', 'Full of testing', this.cols, this.rows, 0);
+        testArea.generate();
+        areas.push(testArea);
         let world = {
             areas: areas
         }
