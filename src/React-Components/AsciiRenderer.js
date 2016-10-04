@@ -12,13 +12,13 @@ class AsciiRenderer extends Component {
     componentWillMount() {
         this.props.controller.registerRenderer(this.updateRenderData);
     }
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return this.state.renderData !== nextState.renderData
-    //             || this.props.renderSettings.rows !== nextProps.renderSettings.rows
-    //             || this.props.renderSettings.cols !== nextProps.renderSettings.cols
-    //             || this.props.renderSettings.gridSize !== nextProps.renderSettings.gridSize;
-    //             //TODO: || this.props.renderSettings !== nextProps.renderSettings;
-    // }
+    shouldComponentUpdate(nextProps, nextState) {
+        return this.state.renderData !== nextState.renderData
+                || this.props.renderSettings.rows !== nextProps.renderSettings.rows
+                || this.props.renderSettings.cols !== nextProps.renderSettings.cols
+                || this.props.renderSettings.gridSize !== nextProps.renderSettings.gridSize;
+                //TODO: || this.props.renderSettings !== nextProps.renderSettings;
+    }
     updateRenderData(renderData) {
         this.setState({renderData: renderData});
     }
