@@ -14,42 +14,37 @@ class Game {
         this.viewport = controller.makeViewport(this.player.area, this.player.position, 30, 20);
     }
 
-    createEntities() {
-        let entities = [];
-        entities.push({
-            area: this.world.areas[0],
-            row: 14,
-            col: 14,
-            getRenderData() {
-                return {
-                    glyph: 'M',
-                    color: 'green'
-                };
-            }
-        })
-        return entities;
-    }
+    // createEntities() {
+    //     let entities = [];
+    //     entities.push({
+    //         area: this.world.areas[0],
+    //         row: 14,
+    //         col: 14,
+    //         getRenderData() {
+    //             return {
+    //                 glyph: 'M',
+    //                 color: 'green'
+    //             };
+    //         }
+    //     })
+    //     return entities;
+    // }
     
     createPlayer() {
         let area = this.world.areas[0];
         let cell = area.cells[Math.ceil(area.height/2)][Math.floor(area.width/2)];
-        return {
+        let player = {
             name: 'Player',
             area: area,
-            position: cell.getPosition()
-        };
-    }
-
-    getRenderData() {
-        let tiles = [];
-        let area = this.world.areas[0];
-        for(let i = 0; i < area.height; i++) {
-            for(let j = 0; j < area.width; j++) {
-                let tile = area.cells[i][j].getRenderData();
-                tiles.push(tile);
+            position: cell.getPosition(),
+            renderData: {
+                glyph: "@",
+                foreColor: "yellow",
+                bgColor: "blue"
             }
-        }
-        return tiles;
+        };
+        area.addEntity(player);
+        return player;
     }
 
 
