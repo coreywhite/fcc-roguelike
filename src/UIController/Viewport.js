@@ -68,6 +68,14 @@ class Viewport {
     }
 
     getRenderData() {
+        let data = this.renderPassTiles();
+        data = this.renderPassVisibility(data);
+        data = this.renderPassEntities(data);
+        data = this.renderPassLighting(data);
+        return data;
+    }
+
+    renderPassTiles() {
         let data = Immutable.fromJS(this.viewCells.map(
             viewCell => {
                 return {row: viewCell.viewRow,
@@ -75,6 +83,26 @@ class Viewport {
                         renderData: viewCell.cell.getRenderData()};
             }
         ));
+        return data;
+    }
+
+    renderPassVisibility(data) {
+        //TODO: Replace with something based on player position, not viewport.
+        console.log(data);
+        return data.filter(cell => {
+            let fovRadius = 6.5;
+            let center = {x: Math.floor(this.width / 2), y: Math.floor(this.height / 2)};
+            let pos = {x: cell.get('col'), y: cell.get('row')};
+            return Math.sqrt(Math.pow(center.x - pos.x, 2) + Math.pow(center.y - pos.y, 2)) <= fovRadius;
+        })
+        return data;
+    }
+
+    renderPassEntities(data) {
+        return data;
+    }
+
+    renderPassLighting(data) {
         return data;
     }
 
