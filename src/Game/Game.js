@@ -12,6 +12,7 @@ class Game {
         //this.entities = this.createEntities();
         this.player = this.createPlayer();
         this.viewport = controller.makeViewport(this.player.area, this.player.position, 30, 20);
+
     }
 
     // createEntities() {
