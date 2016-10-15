@@ -87,15 +87,14 @@ class Viewport {
     }
 
     renderPassVisibility(data) {
-        //TODO: Replace with something based on player position, not viewport.
+        //TODO: Replace with something based on player knowledge, not viewport.
         console.log(data);
         return data.filter(cell => {
             let fovRadius = 8.5;
             let center = {x: Math.floor(this.width / 2), y: Math.floor(this.height / 2)};
             let pos = {x: cell.get('col'), y: cell.get('row')};
             return Math.sqrt(Math.pow(center.x - pos.x, 2) + Math.pow(center.y - pos.y, 2)) <= fovRadius;
-        })
-        return data;
+        });
     }
 
     renderPassEntities(data) {
