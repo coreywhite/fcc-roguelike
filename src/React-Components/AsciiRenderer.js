@@ -37,12 +37,12 @@ class AsciiRenderer extends Component {
         let tiles = [];
         if(renderData) {
             for(var i = 0; i < renderData.size; i++) {
-                tiles.push(<AsciiTile   tileWidth = {tileWidth}
-                                        tileHeight = {tileHeight}
-                                        row = {renderData.get(i).get('row')}
-                                        col = {renderData.get(i).get('col')}
-                                        key = {renderData.get(i).get('row') + ", " + renderData.get(i).get('col')} 
-                                        renderData = {renderData.get(i).get('renderData')} />);
+                tiles.push(<AsciiTile   tileWidth={tileWidth}
+                                        tileHeight={tileHeight}
+                                        row={renderData.get(i).get('row')}
+                                        col={renderData.get(i).get('col')}
+                                        key={renderData.get(i).get('row') + ", " + renderData.get(i).get('col')} 
+                                        renderData={renderData.get(i).get('renderData')} />);
             }
         }
         return (

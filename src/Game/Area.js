@@ -1,4 +1,7 @@
 import Cell from './Cell.js'
+import {gridMap} from '../Utilities/grid.js'
+import {smoothBinary} from '../Utilities/grid.js'
+import gridGenerator from './Generation/GridGenerator.js'
 
 class Area {
     constructor(worldSeed,
@@ -24,6 +27,8 @@ class Area {
         this.entities = null;
 
         this.generate();
+
+        this.smooth = this.smooth.bind(this);
     }
 
     generate() {
@@ -38,6 +43,17 @@ class Area {
         } else {
             this.entities = [];
         }
+    }
+
+    smooth() {
+        //Temporary function (for testing) to smooth an area
+        let tileTypeMap = {
+            '0': {type: 'wall', passable: false},
+            '1': {type: 'floor', passable: true}
+        };
+        let curGrid = gridMap(this.cells, cell => {return cell.passable ? 1 : 0;});
+        let smoothGrid = smoothBinary(curGrid, 1, 1);
+        this.cells = gridGenerator(this, smoothGrid, tileTypeMap);
     }
 
     addEntity(entity) {

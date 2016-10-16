@@ -11,8 +11,8 @@ class Game {
         this.world.generate();
         //this.entities = this.createEntities();
         this.player = this.createPlayer();
+        this.controller.registerAction("smooth", this.player.area.smooth);
         this.viewport = controller.makeViewport(this.player.area, this.player.position, 30, 20);
-
     }
 
     // createEntities() {

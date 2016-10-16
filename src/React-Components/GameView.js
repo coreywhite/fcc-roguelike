@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Immuntable from 'immutable';
+import Immutable from 'immutable';
 import AsciiRenderer from './AsciiRenderer.js'
 import './GameView.css';
 
@@ -13,11 +13,22 @@ class TestButton extends Component {
   }
 }
 
+class SmoothTestButton extends Component {
+  render() {
+    return(
+      <div>
+        <button onClick={this.props.action}>Smooooooooooth</button>
+      </div>
+    );
+  }
+}
+
 class GameView extends Component {
   constructor(props) {
     super(props);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.testAction = this.testAction.bind(this);
+    this.smoothTestAction = this.smoothTestAction.bind(this);
   }
 
   componentDidMount() {
@@ -34,8 +45,11 @@ class GameView extends Component {
         <h1>Roguelike Game</h1>
         <AsciiRenderer  controller={this.props.controller}
                         renderSettings={this.props.renderSettings}/>
-        <h2>Controls would go here</h2>
-        <TestButton action={this.testAction} />
+        <div>
+          <h2>Controls would go here</h2>
+          <TestButton action={this.testAction} />
+          <SmoothTestButton action={this.smoothTestAction} />
+        </div>
       </div>
     );
   }
@@ -43,18 +57,10 @@ class GameView extends Component {
   testAction() {
     let sendCommand = this.props.controller.commandHandler;
     setInterval(sendCommand.bind(null, "right"), 1);
-    // for(let i = 0; i < 30; i++) {
-    //   sendCommand("right");
-    //   sendCommand("up");
-    // }
-    // for(let i = 0; i < 30; i++) {
-    //   sendCommand("right");
-    //   sendCommand("down");
-    // }
-    // for(let i = 0; i < 30; i++) {
-    //   sendCommand("down");
-    //   sendCommand("left");
-    // }
+  }
+
+  smoothTestAction() {
+    this.props.controller.commandHandler("smooth");
   }
 
   handleKeyPress(e) {

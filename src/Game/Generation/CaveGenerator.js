@@ -11,12 +11,11 @@ export default function caveGenerator(seed, area) {
         '1': {type: 'floor', passable: true}
     };
     
-    return gridMap(getRandomGrid(seed, height, width), (row, col, val) => {
+    return gridMap(getRandomGrid(seed, height, width), (val, row, col) => {
         let rowsFromEdge = Math.min(Math.abs(height - 1 - row), row);
         let colsFromEdge = Math.min(Math.abs(width - 1 - col), col);
         let threshold = multiplier * rowsFromEdge * colsFromEdge
         let typeKey = (val > threshold) ? 0 : 1;
-        //console.log(row, col, rowsFromEdge, colsFromEdge, threshold)
         return new Cell(area, row, col, tileTypeMap[typeKey].type, tileTypeMap[typeKey].passable);
     });
 }

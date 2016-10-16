@@ -7,16 +7,26 @@ class RenderController {
     constructor(rootNode, renderSettings) {
         this.rootNode = rootNode;
         this.renderSettings = renderSettings;
+        this.game = null;
         this.viewport = null;
         this.renderCallback = null;
         this.init();
         this.commandHandler = this.commandHandler.bind(this);
+        this.actions = {};
     }
 
     init() {
         ReactDOM.render(<GameView   controller={this}
                                     renderSettings={this.renderSettings} />,
                         this.rootNode);
+    }
+
+    registerGame(game) {
+        this.game = game;
+    }
+
+    registerAction(actionName, action) {
+        this.actions[actionName] = action;
     }
 
     makeViewport(area, topLeft, width, height) {
@@ -43,6 +53,11 @@ class RenderController {
             break;
         case "down":
             this.viewport.translate({dx: 0, dy: 1});
+            break;
+        case "smooth":
+            if(this.actions["smooth"]) {
+                this.actions["smooth"]();
+            }
             break;
         default:
             break;

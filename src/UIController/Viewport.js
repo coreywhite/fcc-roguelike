@@ -68,6 +68,7 @@ class Viewport {
     }
 
     getRenderData() {
+        this.viewCells = this.getViewCells();
         let data = this.renderPassTiles();
         data = this.renderPassVisibility(data);
         data = this.renderPassEntities(data);
@@ -88,7 +89,6 @@ class Viewport {
 
     renderPassVisibility(data) {
         //TODO: Replace with something based on player knowledge, not viewport.
-        console.log(data);
         return data.filter(cell => {
             let fovRadius = 8.5;
             let center = {x: Math.floor(this.width / 2), y: Math.floor(this.height / 2)};
